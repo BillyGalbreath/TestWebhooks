@@ -11,12 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Notify Discord
-        uses: BillyGalbreath/actions-status-discord@003274cc5923c6dc7834fb725c0348d17e78f363
+        uses: BillyGalbreath/actions-status-discord@main
         if: success()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           noprefix: true
           title: New build of Pl3xMap is ready!
           description: |
-            Version ${{ env.minecraftVersion }} build ${{ github.run_number }}
-            Click [here](https://modrinth.com/mod/pl3xmap/version/${{ env.minecraftVersion }}-${{ github.run_number }}) to download!
+            testing 1 2 3
+            **multi-lines**
+            go
+            brrr
