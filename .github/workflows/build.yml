@@ -1,0 +1,25 @@
+name: Build
+on:
+  push:
+    branches:
+      - v3
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.commits[0].message, '[ci-skip]')"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Notify Discord
+        uses: BillyGalbreath/actions-status-discord@003274cc5923c6dc7834fb725c0348d17e78f363
+        if: success()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          noprefix: true
+          title: New build of Pl3xMap is ready!
+          description: |
+            Version ${{ env.minecraftVersion }} build ${{ github.run_number }}
+            Click [here](https://modrinth.com/mod/pl3xmap/version/${{ env.minecraftVersion }}-${{ github.run_number }}) to download!
+            
+            Changes:
+            ${{ join(github.event.commits.*.message, '\n') }}
